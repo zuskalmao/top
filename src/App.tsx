@@ -6,6 +6,7 @@ import HowItWorks from './components/HowItWorks';
 import TopTraders from './components/TopTraders';
 import Community from './components/Community';
 import Footer from './components/Footer';
+import { ContractProvider } from './context/ContractContext';
 
 function App() {
   // Add a class to the body for the cosmic theme
@@ -17,17 +18,19 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <HowItWorks />
-        <TopTraders />
-        <Community />
-      </main>
-      <Footer />
-    </div>
+    <ContractProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main>
+          <Hero />
+          <Features />
+          <HowItWorks />
+          <TopTraders />
+          <Community />
+        </main>
+        <Footer />
+      </div>
+    </ContractProvider>
   );
 }
 

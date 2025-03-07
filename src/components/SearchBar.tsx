@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { Search, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useContract } from '../context/ContractContext';
 
 const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
+  const { fetchContractData, isSearching } = useContract();
   
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
     
-    setIsSearching(true);
+    // Call the contract data fetching function
+    await fetchContractData(searchQuery.trim());
     
-    // Simulate search delay - in a real app this would be an API call
-    setTimeout(() => {
-      setIsSearching(false);
-      // Scroll to results section
-      document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' });
-    }, 1000);
+    // Scroll to results section
+    const resultsElement = document.getElementById('results');
+    if (resultsElement) {
+      resultsElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -40,15 +41,14 @@ const SearchBar: React.FC = () => {
           placeholder="Enter Solana memecoin contract address..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          disabled={isSearching}
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3">
           <button
             type="submit"
-            disabled={isSearching || !searchQuery.trim()}
-            className={`btn ${isSearching || !searchQuery.trim() ? 'bg-gray-300 cursor-not-allowed' : 'btn-primary'} py-2 px-4 text-sm`}
+            disabled={!searchQuery.trim() || isSearching}
+            className={`btn ${!searchQuery.trim() || isSearching ? 'bg-gray-300 cursor-not-allowed' : 'btn-primary'} py-2 px-4 text-sm`}
           >
-            Analyze
+            {isSearching ? 'Analyzing...' : 'Analyze'}
           </button>
         </div>
       </form>
