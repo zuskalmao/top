@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-gray-700 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-dark dark:text-gray-300 min-h-screen;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  
+  ::selection {
+    @apply bg-primary-500/20;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl font-medium transition-all px-5 py-3 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-600 hover:bg-secondary-700 text-white focus:ring-secondary-500;
+  }
+  
+  .btn-outline {
+    @apply border border-gray-300 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:ring-gray-500 dark:focus:ring-gray-700;
+  }
+  
+  .input {
+    @apply block w-full rounded-xl border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm py-3 px-4;
+  }
+  
+  .cosmic-border {
+    @apply relative;
+  }
+  
+  .cosmic-border::before {
+    @apply content-[''] absolute inset-0 rounded-xl -z-10 bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-500 opacity-75 blur-sm transition-all duration-500;
+  }
+  
+  .cosmic-border:hover::before {
+    @apply blur-md opacity-90;
+  }
+  
+  .cosmic-card {
+    @apply rounded-xl bg-white dark:bg-gray-800/60 backdrop-blur-md shadow-lg p-6 border border-gray-200/30 dark:border-gray-700/30 transition-all hover:shadow-xl;
+  }
+  
+  .cosmic-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+  
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-600;
+  }
+}
+
+/* Animated background */
+.stars-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: var(--opacity);
+    transform: scale(1);
+  }
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient animations */
+.gradient-animation {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
